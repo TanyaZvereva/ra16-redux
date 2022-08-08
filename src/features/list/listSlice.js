@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = { list: [] }
+const initialState = { list: [] ,filteredList: []}
 
 const listSlice = createSlice({
   name: 'list',
@@ -20,8 +20,15 @@ const listSlice = createSlice({
       return item
       })
     },
+    filter(state, action) {
+      if(action.payload){
+        state.filteredList = state.list.filter(f => f.name.includes(action.payload))
+      }else{
+        state.filteredList = []
+      }
+    }
   },
 })
 
-export const { add,edit,remove } = listSlice.actions
+export const { add,edit,remove,filter } = listSlice.actions
 export default listSlice.reducer
